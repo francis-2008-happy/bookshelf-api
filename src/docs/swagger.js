@@ -11,6 +11,9 @@ const options = {
     },
     servers: [
       {
+        url: "/",
+      },
+      {
         url: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`,
       },
     ],
