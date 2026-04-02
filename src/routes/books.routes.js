@@ -7,6 +7,7 @@ const {
   deleteBook,
 } = require("../controllers/books.controller");
 const { validateBody, validateParams } = require("../middleware/validateRequest");
+const requireAuth = require("../middleware/requireAuth");
 const {
   objectIdParamSchema,
   createBookSchema,
@@ -53,6 +54,8 @@ router.get("/:id", validateParams(objectIdParamSchema), getBookById);
  *   post:
  *     summary: Create a new book
  *     tags: [Books]
+ *     security:
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -64,8 +67,10 @@ router.get("/:id", validateParams(objectIdParamSchema), getBookById);
  *         description: Book created
  *       400:
  *         description: Validation error
+ *       401:
+ *         description: Authentication required
  */
-router.post("/", validateBody(createBookSchema), createBook);
+router.post("/", requireAuth, validateBody(createBookSchema), createBook);
 
 /**
  * @swagger
@@ -73,6 +78,8 @@ router.post("/", validateBody(createBookSchema), createBook);
  *   put:
  *     summary: Update a book by ID
  *     tags: [Books]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -90,10 +97,12 @@ router.post("/", validateBody(createBookSchema), createBook);
  *         description: Book updated
  *       400:
  *         description: Validation error
+ *       401:
+ *         description: Authentication required
  *       404:
  *         description: Book not found
  */
-router.put("/:id", validateParams(objectIdParamSchema), validateBody(updateBookSchema), updateBook);
+router.put("/:id", requireAuth, validateParams(objectIdParamSchema), validateBody(updateBookSchema), updateBook);
 
 /**
  * @swagger
@@ -101,6 +110,8 @@ router.put("/:id", validateParams(objectIdParamSchema), validateBody(updateBookS
  *   delete:
  *     summary: Delete a book by ID
  *     tags: [Books]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -110,9 +121,11 @@ router.put("/:id", validateParams(objectIdParamSchema), validateBody(updateBookS
  *     responses:
  *       200:
  *         description: Book deleted
+ *       401:
+ *         description: Authentication required
  *       404:
  *         description: Book not found
  */
-router.delete("/:id", validateParams(objectIdParamSchema), deleteBook);
+router.delete("/:id", requireAuth, validateParams(objectIdParamSchema), deleteBook);
 
 module.exports = router;

@@ -18,6 +18,13 @@ const options = {
       },
     ],
     components: {
+      securitySchemes: {
+        cookieAuth: {
+          type: "apiKey",
+          in: "cookie",
+          name: "connect.sid",
+        },
+      },
       schemas: {
         BookInput: {
           type: "object",
@@ -66,6 +73,19 @@ const options = {
               },
             },
           ],
+        },
+        User: {
+          type: "object",
+          properties: {
+            _id: { type: "string", example: "65d77c8c9a68b3f81fdb64a9" },
+            githubId: { type: "string", example: "12345678" },
+            username: { type: "string", example: "octocat" },
+            displayName: { type: "string", example: "The Octocat" },
+            profileUrl: { type: "string", format: "uri", example: "https://github.com/octocat" },
+            avatarUrl: { type: "string", format: "uri", example: "https://avatars.githubusercontent.com/u/583231" },
+            createdAt: { type: "string", format: "date-time" },
+            updatedAt: { type: "string", format: "date-time" },
+          },
         },
       },
     },

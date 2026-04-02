@@ -26,9 +26,11 @@ const getDb = () => {
 
 const getBooksCollection = () => getDb().collection("books");
 const getAuthorsCollection = () => getDb().collection("authors");
+const getUsersCollection = () => getDb().collection("users");
 
 module.exports = {
   connectToDatabase,
   getBooksCollection,
   getAuthorsCollection,
+  getUsersCollection,
 };

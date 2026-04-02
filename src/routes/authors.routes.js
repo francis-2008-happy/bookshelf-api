@@ -7,6 +7,7 @@ const {
   deleteAuthor,
 } = require("../controllers/authors.controller");
 const { validateBody, validateParams } = require("../middleware/validateRequest");
+const requireAuth = require("../middleware/requireAuth");
 const {
   objectIdParamSchema,
   createAuthorSchema,
@@ -53,6 +54,8 @@ router.get("/:id", validateParams(objectIdParamSchema), getAuthorById);
  *   post:
  *     summary: Create a new author
  *     tags: [Authors]
+ *     security:
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -64,8 +67,10 @@ router.get("/:id", validateParams(objectIdParamSchema), getAuthorById);
  *         description: Author created
  *       400:
  *         description: Validation error
+ *       401:
+ *         description: Authentication required
  */
-router.post("/", validateBody(createAuthorSchema), createAuthor);
+router.post("/", requireAuth, validateBody(createAuthorSchema), createAuthor);
 
 /**
  * @swagger
@@ -73,6 +78,8 @@ router.post("/", validateBody(createAuthorSchema), createAuthor);
  *   put:
  *     summary: Update an author by ID
  *     tags: [Authors]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -90,10 +97,12 @@ router.post("/", validateBody(createAuthorSchema), createAuthor);
  *         description: Author updated
  *       400:
  *         description: Validation error
+ *       401:
+ *         description: Authentication required
  *       404:
  *         description: Author not found
  */
-router.put("/:id", validateParams(objectIdParamSchema), validateBody(updateAuthorSchema), updateAuthor);
+router.put("/:id", requireAuth, validateParams(objectIdParamSchema), validateBody(updateAuthorSchema), updateAuthor);
 
 /**
  * @swagger
@@ -101,6 +110,8 @@ router.put("/:id", validateParams(objectIdParamSchema), validateBody(updateAutho
  *   delete:
  *     summary: Delete an author by ID
  *     tags: [Authors]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -110,9 +121,11 @@ router.put("/:id", validateParams(objectIdParamSchema), validateBody(updateAutho
  *     responses:
  *       200:
  *         description: Author deleted
+ *       401:
+ *         description: Authentication required
  *       404:
  *         description: Author not found
  */
-router.delete("/:id", validateParams(objectIdParamSchema), deleteAuthor);
+router.delete("/:id", requireAuth, validateParams(objectIdParamSchema), deleteAuthor);
 
 module.exports = router;
