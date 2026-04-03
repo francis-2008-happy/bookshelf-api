@@ -25,6 +25,17 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: List of authors
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Author'
  */
 router.get("/", getAllAuthors);
 
@@ -43,6 +54,15 @@ router.get("/", getAllAuthors);
  *     responses:
  *       200:
  *         description: Author found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   $ref: '#/components/schemas/Author'
  *       404:
  *         description: Author not found
  */

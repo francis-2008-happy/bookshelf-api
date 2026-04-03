@@ -25,6 +25,17 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: List of books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Book'
  */
 router.get("/", getAllBooks);
 
@@ -43,6 +54,15 @@ router.get("/", getAllBooks);
  *     responses:
  *       200:
  *         description: Book found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   $ref: '#/components/schemas/Book'
  *       404:
  *         description: Book not found
  */

@@ -7,7 +7,7 @@ const options = {
     info: {
       title: "Bookshelf API",
       version: "1.0.0",
-      description: "CRUD API for books with validation and error handling",
+      description: "REST API for managing books and authors. Supports full CRUD with Joi validation, centralized error handling, and GitHub OAuth session-based authentication. Write operations (POST, PUT, DELETE) require authentication.",
     },
     servers: [
       {

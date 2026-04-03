@@ -58,6 +58,15 @@ router.get(
  *     responses:
  *       200:
  *         description: Current user returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
  *       401:
  *         description: Not logged in
  */
